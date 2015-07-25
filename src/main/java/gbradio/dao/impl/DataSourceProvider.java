@@ -1,0 +1,24 @@
+package gbradio.dao.impl;
+
+import javax.sql.DataSource;
+
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+
+/*  Connection à la BDD de GB Radio  */
+
+public class DataSourceProvider {
+
+	private static MysqlDataSource dataSource;
+
+	public static DataSource getDataSource() {
+		if (dataSource == null) {
+			dataSource = new MysqlDataSource();
+			dataSource.setServerName("127.2.193.130");
+			dataSource.setPort(3306);
+			dataSource.setDatabaseName("gbradio");
+			dataSource.setUser("adminhDay8hR");
+			dataSource.setPassword("8-Hv4fv7I9mi");
+		}
+		return dataSource;
+	}
+}
