@@ -5,6 +5,7 @@ import gbradio.entities.Post;
 import gbradio.entities.Type;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -109,6 +110,57 @@ public class PostDaoMysqlImpl implements PostDao {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public Post createPost(Post post){
+		
+		try {
+			Connection connection = DataSourceProvider.getDataSource().getConnection();
+			PreparedStatement stmt = connection.prepareStatement("INSERT INTO posts(title, body, link, soundlink, type_id, created, modified) VALUES (?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, post.getTitle());
+			stmt.setString(2, post.getBody());
+			stmt.setString(3, post.getLink());
+			stmt.setString(4, post.getSoundlink());
+			stmt.setInt(5, post.getType().getType_link());
+			stmt.setDate(6, (Date) post.getCreated());
+			stmt.setDate(7, (Date) post.getModified());
+			
+			stmt.executeUpdate();
+			ResultSet rs = stmt.getGeneratedKeys();
+			if (rs.next()) {
+				Integer id = rs.getInt(1);
+				post.setId(id);
+				return post;
+			}
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public Post updatePost(Post post){
+		
+		try {
+			Connection connection = DataSourceProvider.getDataSource().getConnection();
+			PreparedStatement stmt = connection.prepareStatement("UPDATE posts SET id=?,title=?,body=?,link=?,soundlink=?,type_id=?,created=?,modified=? WHERE id=?");
+			stmt.setString(1, post.getTitle());
+			stmt.setString(2, post.getBody());
+			stmt.setString(3, post.getLink());
+			stmt.setString(4, post.getSoundlink());
+			stmt.setInt(5, post.getType().getType_link());
+			stmt.setDate(6, (Date) post.getCreated());
+			stmt.setDate(7, (Date) post.getModified());
+			stmt.setInt(1, post.getId());
+
+			if(stmt.executeUpdate() > 0){
+				return post;
+			}
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return this.getPost(post.getId());
 	}
 
 }

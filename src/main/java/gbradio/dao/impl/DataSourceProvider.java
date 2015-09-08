@@ -13,11 +13,14 @@ public class DataSourceProvider {
 	public static DataSource getDataSource() {
 		if (dataSource == null) {
 			dataSource = new MysqlDataSource();
-			dataSource.setServerName("127.2.193.130");
+			//dataSource.setServerName("127.2.193.130");
+			dataSource.setServerName("127.0.0.1");
 			dataSource.setPort(3306);
 			dataSource.setDatabaseName("gbradio");
-			dataSource.setUser("adminhDay8hR");
-			dataSource.setPassword("8-Hv4fv7I9mi");
+			//dataSource.setUser("adminhDay8hR");
+			//dataSource.setPassword("8-Hv4fv7I9mi");
+			dataSource.setUser("root");
+			dataSource.setPassword("");
 		}
 		return dataSource;
 	}

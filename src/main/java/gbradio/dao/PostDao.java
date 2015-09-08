@@ -11,6 +11,8 @@ public interface PostDao {
 	public abstract List<Post> listerPosts();
 
 	public abstract Post getPost(Integer id);
+	public abstract Post createPost(Post post);
+	public abstract Post updatePost(Post post);
 
 	public abstract List<Post> listerThemes(Integer type_id);
 

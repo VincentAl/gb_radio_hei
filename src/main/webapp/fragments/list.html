@@ -1,0 +1,13 @@
+<div class="container-fluid">
+	<a ng-repeat="post in posts" href="#/post/{{post.id}}">
+		<div class="row line">
+			<div class="columns col-xs-2">
+				<img class="thumb-theme" src="{{post.type.picture}}" alt="{{post.type.theme}}">
+			</div>
+			<div class="columns col-xs-10">
+				<h2 class="title">{{post.title}}<span class="glyphicon glyphicon-chevron-right arrow-right"></span></h2>
+				<p>{{post.type.theme}}</p>
+			</div>
+		</div>
+	</a>
+</div>

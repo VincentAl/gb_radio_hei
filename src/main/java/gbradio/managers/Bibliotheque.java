@@ -15,6 +15,8 @@ import java.util.List;
 public class Bibliotheque {
 
 	private static Bibliotheque instance;
+	private TypeDao typeDao;
+	private PostDao postDao; 
 
 	public static Bibliotheque getInstance() {
 		if (instance == null) {
@@ -23,10 +25,10 @@ public class Bibliotheque {
 		return instance;
 	}
 
-	private TypeDao typeDao = new TypeDaoMysqlImpl();
-	private PostDao postDao = new PostDaoMysqlImpl();
 
-	private Bibliotheque() {
+	private Bibliotheque(){
+		 typeDao = new TypeDaoMysqlImpl();
+		 postDao = new PostDaoMysqlImpl();
 	}
 
 	public List<Post> listerPosts() {
@@ -51,6 +53,14 @@ public class Bibliotheque {
 	
 	public Type getType(Integer type_link){
 		return typeDao.getType(type_link);
+	}
+	
+	public Post createPost(Post post){
+		return postDao.createPost(post);
+	}
+	
+	public Post updatePost(Post post){
+		return postDao.updatePost(post);
 	}
 	
 }
